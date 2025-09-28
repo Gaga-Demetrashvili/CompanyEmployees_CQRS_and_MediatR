@@ -15,6 +15,8 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(CompanyEmployees.Application.AssemblyReference).Assembly));
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployees.Infrastructure.Presentation.Controllers;
 
@@ -6,7 +7,9 @@ namespace CompanyEmployees.Infrastructure.Presentation.Controllers;
 [ApiController]
 public class CompaniesController : ControllerBase
 {
-    public CompaniesController() { }
+    private readonly ISender _sender;
+
+    public CompaniesController(ISender sender) => _sender = sender;
 
     
 }
