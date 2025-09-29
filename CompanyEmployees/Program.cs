@@ -1,5 +1,8 @@
 using CompanyEmployees;
+using CompanyEmployees.Application.Behaviors;
 using CompanyEmployees.Extensions;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -18,6 +21,8 @@ builder.Services.AddProblemDetails();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(CompanyEmployees.Application.AssemblyReference).Assembly));
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddValidatorsFromAssembly(typeof(CompanyEmployees.Application.AssemblyReference).Assembly);
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

@@ -12,7 +12,7 @@ internal sealed class CreateCompanyHandler(IRepositoryManager repository, IMappe
 {
     public async Task<CompanyDto> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
     {
-        var companyEntity = mapper.Map<Company>(request.company);
+        var companyEntity = mapper.Map<Company>(request.Company);
 
         repository.Company.CreateCompany(companyEntity);
         await repository.SaveAsync();
