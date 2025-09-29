@@ -7,7 +7,7 @@ using Shared.DataTransferObjects;
 
 namespace CompanyEmployees.Application.Handlers;
 
-public sealed class GetCompanyHandler(IRepositoryManager repository, IMapper mapper)
+internal sealed class GetCompanyHandler(IRepositoryManager repository, IMapper mapper)
     : IRequestHandler<GetCompanyQuery, CompanyDto>
 {
     public async Task<CompanyDto> Handle(GetCompanyQuery request, CancellationToken cancellationToken)
