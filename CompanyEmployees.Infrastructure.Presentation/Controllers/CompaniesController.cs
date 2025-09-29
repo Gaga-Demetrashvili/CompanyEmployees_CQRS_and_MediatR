@@ -1,4 +1,5 @@
 ﻿using CompanyEmployees.Application.Commands;
+using CompanyEmployees.Application.Notifications;
 using CompanyEmployees.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace CompanyEmployees.Infrastructure.Presentation.Controllers;
 
 [Route("api/companies")]
 [ApiController]
-public class CompaniesController(ISender sender) : ControllerBase
+public class CompaniesController(ISender sender, IPublisher publisher) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetCompanies()
@@ -51,7 +52,7 @@ public class CompaniesController(ISender sender) : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteCompany(Guid id)
     {
-        await sender.Send(new DeleteCompanyCommand(id, TrackChanges: false));
+        await publisher.Publish(new CompanyDeletedNotification(id, TrackChanges: false));
 
         return NoContent();
     }
